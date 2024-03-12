@@ -1,0 +1,10 @@
+GET http://127.0.0.1:4000/foo HTTP/1.1
+
+# HTTP/1.1 404 Not Found
+# Content-Type: text/plain; charset=utf-8
+# X-Content-Type-Options: nosniff
+# Date: Tue, 12 Mar 2024 12:22:55 GMT
+# Content-Length: 19
+# Connection: close
+
+# 404 page not found
