@@ -1,0 +1,9 @@
+POST http://127.0.0.1:4000/snippet/create HTTP/1.1
+
+# HTTP/1.1 200 OK
+# Date: Tue, 12 Mar 2024 12:33:57 GMT
+# Content-Length: 23
+# Content-Type: text/plain; charset=utf-8
+# Connection: close
+
+# Create a new snippet...
