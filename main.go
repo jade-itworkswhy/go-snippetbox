@@ -17,13 +17,14 @@ func main() {
 	mux := http.NewServeMux()
 
 	// register the home func as the handler for the root route
+	// !info Go's servemux treats the URL pattern "/" like a catch-all
 	mux.HandleFunc("/", home)
 
 	log.Print("starting server on :4000")
 
 	// start the server and listen
 	err := http.ListenAndServe(":4000", mux)
-	
+
 	// use log.Fatal to log the error and exit.
 	// any error from http.listenAndServe() is always non-nil.
 	log.Fatal(err)
