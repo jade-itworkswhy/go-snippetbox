@@ -1,10 +1,13 @@
 package main
 
 import (
+	"database/sql"
 	"flag"
 	"log/slog"
 	"net/http"
 	"os"
+
+	_ "github.com/go-sql-driver/mysql" // Import for side effect(usage of "_")
 )
 
 // Define an application struct to hold the application-wide dependencies for the
@@ -23,6 +26,8 @@ func main() {
 	// This reads in the command-line flag value and assigns it to the addr
 	// variable. You need to call this *before* you use the addr variable
 	// otherwise it will always contain the default value of ":4000". If any errors are // encountered during parsing the application will be terminated.
+	// Define a new command-line flag for the MySQL DSN string.
+	dsn := flag.String("dsn", "web:pass@/snippetbox?parseTime=true", "MySQL data source name")
 	flag.Parse()
 
 	// note: alternatively, we can use os.Getenv("ENV_NAME")
@@ -35,6 +40,16 @@ func main() {
 
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
+	// To keep the main() function tidy I've put the code for creating a connection
+	// pool into the separate openDB() function below. We pass openDB() the DSN
+	// from the command-line flag.
+	db, err := openDB(*dsn)
+	if err != nil {
+		logger.Error(err.Error())
+		os.Exit(1)
+	}
+	// close the connection pool later for graceful shutdown
+	defer db.Close()
 	app := &application{
 		logger: logger,
 	}
@@ -42,9 +57,30 @@ func main() {
 	logger.Info("starting server", "addr", *addr)
 	// Call the new app.routes() method to get the servemux containing our routes,
 	// and pass that to http.ListenAndServe().
-	err := http.ListenAndServe(*addr, app.routes())
+	err = http.ListenAndServe(*addr, app.routes())
 
 	logger.Error(err.Error())
 	os.Exit(1)
 
+}
+
+func openDB(dsn string) (*sql.DB, error) {
+	// initialise the connection pool
+	// actual connections to the database are established lazily
+	// i.e once the first db connection is requested
+	// that's why we check the connection with db.Ping() below
+	db, err := sql.Open("mysql", dsn)
+	if err != nil {
+		return nil, err
+	}
+
+	// check the db connection
+	err = db.Ping()
+	if err != nil {
+		db.Close()
+		return nil, err
+	}
+
+	// successfully conneted
+	return db, nil
 }

@@ -6,3 +6,8 @@ go 1.22.0
 // go run .
 // go run main.go
 // go run jade-factory/go-snippetbox
+
+require (
+	filippo.io/edwards25519 v1.1.0 // indirect
+	github.com/go-sql-driver/mysql v1.8.0 // indirect
+)
