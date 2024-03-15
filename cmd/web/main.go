@@ -2,11 +2,17 @@ package main
 
 import (
 	"flag"
-	"log"
 	"log/slog"
 	"net/http"
 	"os"
 )
+
+// Define an application struct to hold the application-wide dependencies for the
+// web application. For now we'll only include the structured logger, but we'll
+// add more to this as the build progresses.
+type application struct {
+	logger *slog.Logger
+}
 
 func main() {
 
@@ -29,6 +35,10 @@ func main() {
 
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
+	app := &application{
+		logger: logger,
+	}
+
 	mux := http.NewServeMux() // this makes a function statisfies handler interface
 	// Create a file server which serves files out of the "./ui/static" directory.
 	// Note that the path given to the http.Dir function is relative to the project
@@ -40,11 +50,11 @@ func main() {
 	// "/static" prefix before the request reaches the file server.
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
 	// Register the other application routes as normal.
-	mux.HandleFunc("/", home)
-	mux.HandleFunc("/snippet/view", snippetView)
-	mux.HandleFunc("/snippet/create", snippetCreate)
+	mux.HandleFunc("/", app.home)
+	mux.HandleFunc("/snippet/view", app.snippetView)
+	mux.HandleFunc("/snippet/create", app.snippetCreate)
 
-	log.Printf("starting server on %s", *addr)
+	logger.Info("starting server", "addr", *addr)
 
 	err := http.ListenAndServe(*addr, mux)
 	logger.Error(err.Error())
