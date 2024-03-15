@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	mux := http.NewServeMux()
+	mux := http.NewServeMux() // this makes a function statisfies handler interface
 	// Create a file server which serves files out of the "./ui/static" directory.
 	// Note that the path given to the http.Dir function is relative to the project
 	// directory root.
