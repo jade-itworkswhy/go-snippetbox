@@ -3,7 +3,9 @@ package main
 import (
 	"flag"
 	"log"
+	"log/slog"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -16,6 +18,16 @@ func main() {
 	// variable. You need to call this *before* you use the addr variable
 	// otherwise it will always contain the default value of ":4000". If any errors are // encountered during parsing the application will be terminated.
 	flag.Parse()
+
+	// note: alternatively, we can use os.Getenv("ENV_NAME")
+	// BUTYou can’t specify a
+	// default setting (the return value from os.Getenv() is the empty string if the environment
+	// variable doesn’t exist), you don’t get the -help functionality that you do with commandline
+	// flags, and the return value from os.Getenv() is always a string — you don’t get
+	// automatic type conversions like you do with flag.Int(), flag.Bool() and the other
+	// command line flag functions.
+
+	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
 	mux := http.NewServeMux() // this makes a function statisfies handler interface
 	// Create a file server which serves files out of the "./ui/static" directory.
@@ -35,5 +47,7 @@ func main() {
 	log.Printf("starting server on %s", *addr)
 
 	err := http.ListenAndServe(*addr, mux)
-	log.Fatal(err)
+	logger.Error(err.Error())
+	os.Exit(1)
+
 }
