@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"os"
 
+	"jade-factory/go-snippetbox/internal/models"
+
 	_ "github.com/go-sql-driver/mysql" // Import for side effect(usage of "_")
 )
 
@@ -14,7 +16,8 @@ import (
 // web application. For now we'll only include the structured logger, but we'll
 // add more to this as the build progresses.
 type application struct {
-	logger *slog.Logger
+	logger   *slog.Logger
+	snippets *models.SnippetModel
 }
 
 func main() {
@@ -27,6 +30,8 @@ func main() {
 	// variable. You need to call this *before* you use the addr variable
 	// otherwise it will always contain the default value of ":4000". If any errors are // encountered during parsing the application will be terminated.
 	// Define a new command-line flag for the MySQL DSN string.
+
+	// we have total control over which database is used at runtime, just by using the -dsn command-line flag.
 	dsn := flag.String("dsn", "web:pass@/snippetbox?parseTime=true", "MySQL data source name")
 	flag.Parse()
 
@@ -51,7 +56,8 @@ func main() {
 	// close the connection pool later for graceful shutdown
 	defer db.Close()
 	app := &application{
-		logger: logger,
+		logger:   logger,
+		snippets: &models.SnippetModel{DB: db},
 	}
 
 	logger.Info("starting server", "addr", *addr)

@@ -1,5 +1,5 @@
 web:
-	go run ./cmd/web -addr=":9999"
+	go run ./cmd/web -addr=":4000"
 
 help:
 	go run ./cmd/web -help
