@@ -47,14 +47,14 @@
     - [x] 5.5. Common dynamic data
     - [x] 5.6. Custom template functions
 6. [Middleware](#middleware)
-    - [ ] 6.1. How middleware works
-    - [ ] 6.2. Setting security headers
-    - [ ] 6.3. Request logging
-    - [ ] 6.4. Panic recovery
-    - [ ] 6.5. Composable middleware chains
+    - [x] 6.1. How middleware works
+    - [x] 6.2. Setting security headers
+    - [x] 6.3. Request logging
+    - [x] 6.4. Panic recovery
+    - [x] 6.5. Composable middleware chains
 7. [Advanced routing](#advanced-routing)
-    - [ ] 7.1. Choosing a router
-    - [ ] 7.2. Clean URLs and method-based routing
+    - [x] 7.1. Choosing a router
+    - [x] 7.2. Clean URLs and method-based routing
 8. [Processing forms](#processing-forms)
     - [ ] 8.1. Setting up an HTML form
     - [ ] 8.2. Parsing form data
