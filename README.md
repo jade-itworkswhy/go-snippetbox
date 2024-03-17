@@ -43,9 +43,9 @@
     - [x] 5.1. Displaying dynamic data
     - [x] 5.2. Template actions and functions
     - [x] 5.3. Caching templates
-    - [ ] 5.4. Catching runtime errors
-    - [ ] 5.5. Common dynamic data
-    - [ ] 5.6. Custom template functions
+    - [x] 5.4. Catching runtime errors
+    - [x] 5.5. Common dynamic data
+    - [x] 5.6. Custom template functions
 6. [Middleware](#middleware)
     - [ ] 6.1. How middleware works
     - [ ] 6.2. Setting security headers

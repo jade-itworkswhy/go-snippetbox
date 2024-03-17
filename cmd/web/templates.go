@@ -17,7 +17,7 @@ type templateData struct {
 
 // function for formatting time
 func humanData(t time.Time) string {
-	return t.Format("02 Jan 2006 at 15:04") // why this specific moment?
+	return t.Format("02 Jan 2006 at 15:04") // why this specific moment? oh It is just the numbers 1 2 3 4 5 6 7...
 }
 
 var functions = template.FuncMap{
