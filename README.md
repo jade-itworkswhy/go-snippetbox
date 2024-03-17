@@ -40,9 +40,9 @@
     - [x] 4.8. Multiple-record SQL queries
     - [x] 4.9. Transactions and other details
 5. [Dynamic HTML templates](#dynamic-html-templates)
-    - [ ] 5.1. Displaying dynamic data
-    - [ ] 5.2. Template actions and functions
-    - [ ] 5.3. Caching templates
+    - [x] 5.1. Displaying dynamic data
+    - [x] 5.2. Template actions and functions
+    - [x] 5.3. Caching templates
     - [ ] 5.4. Catching runtime errors
     - [ ] 5.5. Common dynamic data
     - [ ] 5.6. Custom template functions
