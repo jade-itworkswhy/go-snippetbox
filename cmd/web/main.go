@@ -3,6 +3,8 @@ package main
 import (
 	"database/sql"
 	"flag"
+	"fmt"
+	"html/template"
 	"log/slog"
 	"net/http"
 	"os"
@@ -16,8 +18,9 @@ import (
 // web application. For now we'll only include the structured logger, but we'll
 // add more to this as the build progresses.
 type application struct {
-	logger   *slog.Logger
-	snippets *models.SnippetModel
+	logger        *slog.Logger
+	snippets      *models.SnippetModel
+	templateCache map[string]*template.Template
 }
 
 func main() {
@@ -55,19 +58,29 @@ func main() {
 	}
 	// close the connection pool later for graceful shutdown
 	defer db.Close()
+
+	// init template in-memory cache
+	templateCache, err := newTemplateCache()
+	if err != nil {
+		logger.Error(err.Error())
+		os.Exit(1)
+	}
+
+	fmt.Printf("%s", templateCache)
+
 	app := &application{
-		logger:   logger,
-		snippets: &models.SnippetModel{DB: db},
+		logger:        logger,
+		snippets:      &models.SnippetModel{DB: db},
+		templateCache: templateCache,
 	}
 
 	logger.Info("starting server", "addr", *addr)
+
 	// Call the new app.routes() method to get the servemux containing our routes,
 	// and pass that to http.ListenAndServe().
 	err = http.ListenAndServe(*addr, app.routes())
-
 	logger.Error(err.Error())
 	os.Exit(1)
-
 }
 
 func openDB(dsn string) (*sql.DB, error) {
