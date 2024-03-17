@@ -4,13 +4,24 @@ import (
 	"html/template"
 	"jade-factory/go-snippetbox/internal/models"
 	"path/filepath"
+	"time"
 )
 
 // define a template data for hold structure for dynamic data.
 
 type templateData struct {
-	Snippet  models.Snippet
-	Snippets []models.Snippet
+	CurrentYear int
+	Snippet     models.Snippet
+	Snippets    []models.Snippet
+}
+
+// function for formatting time
+func humanData(t time.Time) string {
+	return t.Format("02 Jan 2006 at 15:04") // why this specific moment?
+}
+
+var functions = template.FuncMap{
+	"humanData": humanData,
 }
 
 func newTemplateCache() (map[string]*template.Template, error) {
@@ -29,7 +40,7 @@ func newTemplateCache() (map[string]*template.Template, error) {
 		name := filepath.Base(page)
 
 		// Parse the base template file into a template set.
-		ts, err := template.ParseFiles("./ui/html/base.tmpl.html")
+		ts, err := template.New(name).Funcs(functions).ParseFiles("./ui/html/base.tmpl.html")
 		if err != nil {
 			return nil, err
 		}
