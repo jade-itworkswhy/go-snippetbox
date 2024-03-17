@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"flag"
-	"fmt"
 	"html/template"
 	"log/slog"
 	"net/http"
@@ -65,8 +64,6 @@ func main() {
 		logger.Error(err.Error())
 		os.Exit(1)
 	}
-
-	fmt.Printf("%s", templateCache)
 
 	app := &application{
 		logger:        logger,
