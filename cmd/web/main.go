@@ -4,12 +4,12 @@ import (
 	"database/sql"
 	"flag"
 	"html/template"
+	"jade-factory/go-snippetbox/internal/models"
 	"log/slog"
 	"net/http"
 	"os"
 
-	"jade-factory/go-snippetbox/internal/models"
-
+	"github.com/go-playground/form/v4"
 	_ "github.com/go-sql-driver/mysql" // Import for side effect(usage of "_")
 )
 
@@ -20,6 +20,7 @@ type application struct {
 	logger        *slog.Logger
 	snippets      *models.SnippetModel
 	templateCache map[string]*template.Template
+	formDecoder   *form.Decoder
 }
 
 func main() {
@@ -65,10 +66,14 @@ func main() {
 		os.Exit(1)
 	}
 
+	// init form decoder instance
+	formDecoder := form.NewDecoder()
+
 	app := &application{
 		logger:        logger,
 		snippets:      &models.SnippetModel{DB: db},
 		templateCache: templateCache,
+		formDecoder:   formDecoder,
 	}
 
 	logger.Info("starting server", "addr", *addr)
