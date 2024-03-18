@@ -56,12 +56,12 @@
     - [x] 7.1. Choosing a router
     - [x] 7.2. Clean URLs and method-based routing
 8. [Processing forms](#processing-forms)
-    - [ ] 8.1. Setting up an HTML form
-    - [ ] 8.2. Parsing form data
-    - [ ] 8.3. Validating form data
-    - [ ] 8.4. Displaying errors and repopulating fields
-    - [ ] 8.5. Creating validation helpers
-    - [ ] 8.6. Automatic form parsing
+    - [x] 8.1. Setting up an HTML form
+    - [x] 8.2. Parsing form data
+    - [x] 8.3. Validating form data
+    - [x] 8.4. Displaying errors and repopulating fields
+    - [x] 8.5. Creating validation helpers
+    - [x] 8.6. Automatic form parsing
 9. [Stateful HTTP](#stateful-http)
     - [ ] 9.1. Choosing a session manager
     - [ ] 9.2. Setting up the session manager
