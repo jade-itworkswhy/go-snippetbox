@@ -85,8 +85,8 @@
     - [x] 12.1. How request context works
     - [x] 12.2. Request context for authentication/authorization
 13. [File embedding](#file-embedding)
-    - [ ] 13.1. Embedding static files
-    - [ ] 13.2. Embedding HTML templates
+    - [x] 13.1. Embedding static files
+    - [x] 13.2. Embedding HTML templates
 14. [Testing](#testing)
     - [ ] 14.1. Unit testing and sub-tests
     - [ ] 14.2. Testing HTTP handlers and middleware

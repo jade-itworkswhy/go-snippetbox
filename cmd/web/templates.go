@@ -2,7 +2,9 @@ package main
 
 import (
 	"html/template"
+	"io/fs"
 	"jade-factory/go-snippetbox/internal/models"
+	"jade-factory/go-snippetbox/ui"
 	"path/filepath"
 	"time"
 )
@@ -10,9 +12,10 @@ import (
 // define a template data for hold structure for dynamic data.
 
 type templateData struct {
-	CurrentYear     int
-	Snippet         models.Snippet
-	Snippets        []models.Snippet
+	CurrentYear int
+	Snippet     models.Snippet
+	Snippets    []models.Snippet
+
 	Form            any
 	Flash           string
 	IsAuthenticated bool
@@ -33,7 +36,8 @@ func newTemplateCache() (map[string]*template.Template, error) {
 	cache := map[string]*template.Template{}
 
 	// get a slice of all filepaths matching the template pattern
-	pages, err := filepath.Glob("./ui/html/pages/*.tmpl.html")
+	// read from embedded filesystem
+	pages, err := fs.Glob(ui.Files, "html/pages/*.tmpl.html")
 
 	if err != nil {
 		return nil, err
@@ -43,22 +47,16 @@ func newTemplateCache() (map[string]*template.Template, error) {
 	for _, page := range pages {
 		name := filepath.Base(page)
 
-		// Parse the base template file into a template set.
-		ts, err := template.New(name).Funcs(functions).ParseFiles("./ui/html/base.tmpl.html")
+		// Create a slice containing the filepath patterns for the templates we // want to parse.
+		patterns := []string{
+			"html/base.tmpl.html", "html/partials/*.tmpl.html", page,
+		}
+		// Use ParseFS() instead of ParseFiles() to parse the template files
+		// from the ui.Files embedded filesystem.
+		ts, err := template.New(name).Funcs(functions).ParseFS(ui.Files, patterns...)
 		if err != nil {
 			return nil, err
 		}
-		// Call ParseGlob() *on this template set* to add any partials.
-		ts, err = ts.ParseGlob("./ui/html/partials/*.tmpl.html")
-		if err != nil {
-			return nil, err
-		}
-		// Call ParseFiles() *on this template set* to add the page template.
-		ts, err = ts.ParseFiles(page)
-		if err != nil {
-			return nil, err
-		}
-		// Add the template set to the map as normal...
 		cache[name] = ts
 	}
 	return cache, nil
