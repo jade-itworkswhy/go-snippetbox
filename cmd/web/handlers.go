@@ -48,8 +48,14 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
+
+	// get "just" created snippet from the current session
+	// by the key "flash"
+	flash := app.sessionManager.PopString(r.Context(), "flash")
 	data := app.newTemplateData(r)
 	data.Snippet = snippet
+
+	data.Flash = flash
 	app.render(w, r, http.StatusOK, "view.tmpl.html", data)
 }
 
@@ -109,6 +115,13 @@ func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request
 		app.serverError(w, r, err)
 		return
 	}
+
+	// put session flash message
+	app.sessionManager.Put(
+		r.Context(),                     // request context
+		"flash",                         // key
+		"Snippet successfully created!", // value
+	)
 	// redirect to the created snippet page
 	http.Redirect(w, r, fmt.Sprintf("/snippet/view/%d", id), http.StatusSeeOther)
 }
