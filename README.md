@@ -82,8 +82,8 @@
     - [x] 11.6. User authorization
     - [x] 11.7. CSRF protection
 12. [Using request context](#using-request-context)
-    - [ ] 12.1. How request context works
-    - [ ] 12.2. Request context for authentication/authorization
+    - [x] 12.1. How request context works
+    - [x] 12.2. Request context for authentication/authorization
 13. [File embedding](#file-embedding)
     - [ ] 13.1. Embedding static files
     - [ ] 13.2. Embedding HTML templates

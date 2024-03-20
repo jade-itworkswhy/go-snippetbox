@@ -25,7 +25,7 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodGet, "/static/*filepath", http.StripPrefix("/static", fileServer))
 
 	// cynamic application routes.
-	dynamic := alice.New(app.sessionManager.LoadAndSave, noSurf)
+	dynamic := alice.New(app.sessionManager.LoadAndSave, noSurf, app.authenticate)
 	// And then create the routes using the appropriate methods, patterns and
 	// handlers.
 	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))
