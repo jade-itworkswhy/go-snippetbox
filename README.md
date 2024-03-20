@@ -74,13 +74,13 @@
     - [x] 10.5. Configuring HTTPS settings
     - [x] 10.6. Connection timeouts
 11. [User authentication](#user-authentication)
-    - [ ] 11.1. Routes setup
-    - [ ] 11.2. Creating a users model
-    - [ ] 11.3. User signup and password encryption
-    - [ ] 11.4. User login
-    - [ ] 11.5. User logout
-    - [ ] 11.6. User authorization
-    - [ ] 11.7. CSRF protection
+    - [x] 11.1. Routes setup
+    - [x] 11.2. Creating a users model
+    - [x] 11.3. User signup and password encryption
+    - [x] 11.4. User login
+    - [x] 11.5. User logout
+    - [x] 11.6. User authorization
+    - [x] 11.7. CSRF protection
 12. [Using request context](#using-request-context)
     - [ ] 12.1. How request context works
     - [ ] 12.2. Request context for authentication/authorization
