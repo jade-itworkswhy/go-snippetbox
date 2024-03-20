@@ -63,16 +63,16 @@
     - [x] 8.5. Creating validation helpers
     - [x] 8.6. Automatic form parsing
 9. [Stateful HTTP](#stateful-http)
-    - [ ] 9.1. Choosing a session manager
-    - [ ] 9.2. Setting up the session manager
-    - [ ] 9.3. Working with session data
+    - [x] 9.1. Choosing a session manager
+    - [x] 9.2. Setting up the session manager
+    - [x] 9.3. Working with session data
 10. [Server and security improvements](#server-and-security-improvements)
-    - [ ] 10.1. The http.Server struct
-    - [ ] 10.2. The server error log
-    - [ ] 10.3. Generating a self-signed TLS certificate
-    - [ ] 10.4. Running a HTTPS server
-    - [ ] 10.5. Configuring HTTPS settings
-    - [ ] 10.6. Connection timeouts
+    - [x] 10.1. The http.Server struct
+    - [x] 10.2. The server error log
+    - [x] 10.3. Generating a self-signed TLS certificate
+    - [x] 10.4. Running a HTTPS server
+    - [x] 10.5. Configuring HTTPS settings
+    - [x] 10.6. Connection timeouts
 11. [User authentication](#user-authentication)
     - [ ] 11.1. Routes setup
     - [ ] 11.2. Creating a users model
