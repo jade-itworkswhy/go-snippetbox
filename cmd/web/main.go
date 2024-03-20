@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"database/sql"
 	"flag"
 	"html/template"
@@ -89,11 +90,22 @@ func main() {
 		sessionManager: sessionManager,
 	}
 
+	// init tls config for customisation
+	tlsConfig := &tls.Config{
+		// assembly implementations
+		CurvePreferences: []tls.CurveID{tls.X25519, tls.CurveP256},
+		// can be filtered
+		// MinVersion: tls.VersionTLS12,
+		// MaxVersion: tls.VersionTLS12,
+	}
+
 	// server with customizable struct
 	srv := &http.Server{
-		Addr:     *addr,
-		Handler:  app.routes(),
-		ErrorLog: slog.NewLogLogger(logger.Handler(), slog.LevelWarn),
+		Addr:           *addr,
+		MaxHeaderBytes: 524288, // Go **always** addes additional 4096 bytes of headroom.
+		Handler:        app.routes(),
+		ErrorLog:       slog.NewLogLogger(logger.Handler(), slog.LevelWarn),
+		TLSConfig:      tlsConfig,
 	}
 
 	logger.Info("starting server", "addr", srv.Addr)
