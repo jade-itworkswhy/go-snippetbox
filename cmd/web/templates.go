@@ -10,11 +10,12 @@ import (
 // define a template data for hold structure for dynamic data.
 
 type templateData struct {
-	CurrentYear int
-	Snippet     models.Snippet
-	Snippets    []models.Snippet
-	Form        any
-	Flash       string
+	CurrentYear     int
+	Snippet         models.Snippet
+	Snippets        []models.Snippet
+	Form            any
+	Flash           string
+	IsAuthenticated bool
 }
 
 // function for formatting time
