@@ -29,10 +29,10 @@ type application struct {
 }
 
 func main() {
-
 	// Define a new command-line flag with the name 'addr', a default value of ":4000" // and some short help text explaining what the flag controls. The value of the
 	// flag will be stored in the addr variable at runtime.
 	addr := flag.String("addr", ":4000", "HTTP network address")
+
 	// Importantly, we use the flag.Parse() function to parse the command-line flag.
 	// This reads in the command-line flag value and assigns it to the addr
 	// variable. You need to call this *before* you use the addr variable
@@ -78,6 +78,8 @@ func main() {
 	sessionManager := scs.New()
 	sessionManager.Store = mysqlstore.New(db)
 	sessionManager.Lifetime = 12 * time.Hour
+	// enable https
+	sessionManager.Cookie.Secure = true
 
 	app := &application{
 		logger:         logger,
@@ -87,11 +89,16 @@ func main() {
 		sessionManager: sessionManager,
 	}
 
-	logger.Info("starting server", "addr", *addr)
+	// server with customizable struct
+	srv := &http.Server{
+		Addr:     *addr,
+		Handler:  app.routes(),
+		ErrorLog: slog.NewLogLogger(logger.Handler(), slog.LevelWarn),
+	}
 
-	// Call the new app.routes() method to get the servemux containing our routes,
-	// and pass that to http.ListenAndServe().
-	err = http.ListenAndServe(*addr, app.routes())
+	logger.Info("starting server", "addr", srv.Addr)
+
+	err = srv.ListenAndServeTLS("./tls/cert.pem", "./tls/key.pem")
 	logger.Error(err.Error())
 	os.Exit(1)
 }
