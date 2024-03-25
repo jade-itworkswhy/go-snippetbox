@@ -15,4 +15,7 @@ tidy:
 	go mod tidy
 
 test:
-	go test -v ./cmd/web
+	go test ./cmd/web
+
+test-verbose:
+	go test ./cmd/web -v
