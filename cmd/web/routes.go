@@ -26,6 +26,9 @@ func (app *application) routes() http.Handler {
 	fileServer := http.FileServer(http.FS(ui.Files)) // embedded
 	router.Handler(http.MethodGet, "/static/*filepath", fileServer)
 
+	// Add a new GET /ping route.
+	router.HandlerFunc(http.MethodGet, "/ping", ping)
+
 	// cynamic application routes.
 	dynamic := alice.New(app.sessionManager.LoadAndSave, noSurf, app.authenticate)
 	// And then create the routes using the appropriate methods, patterns and
