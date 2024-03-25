@@ -14,7 +14,7 @@ verify:
 tidy:
 	go mod tidy 
 
-test:
+test-all:
 	go test ./...
 
 test-no-cache:
@@ -22,9 +22,3 @@ test-no-cache:
 
 test-web:
 	go test ./cmd/web -v
-
-test-web-v:
-	go test ./cmd/web -v
-
-clear-test-cache:
-	go clean -testcache
