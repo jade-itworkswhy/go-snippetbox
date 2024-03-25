@@ -14,7 +14,7 @@ verify:
 tidy:
 	go mod tidy 
 
-test-all:
+test:
 	go test ./...
 
 test-no-cache:

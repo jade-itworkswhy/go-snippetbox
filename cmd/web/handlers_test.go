@@ -99,6 +99,7 @@ func TestUserSignup(t *testing.T) {
 		validEmail    = "bob@example.com"
 		formTag       = "<form action='/user/signup' method='POST' novalidate>"
 	)
+
 	tests := []struct {
 		name         string
 		userName     string
@@ -190,7 +191,9 @@ func TestUserSignup(t *testing.T) {
 			form.Add("csrf_token", tt.csrfToken)
 
 			code, _, body := ts.postForm(t, "/user/signup", form)
+
 			assert.Equal(t, code, tt.wantCode)
+
 			if tt.wantFormTag != "" {
 				assert.StringContains(t, body, tt.wantFormTag)
 			}
