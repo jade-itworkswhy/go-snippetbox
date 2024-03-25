@@ -92,9 +92,9 @@
     - [x] 14.2. Testing HTTP handlers and middleware
     - [x] 14.3. End-to-end testing
     - [x] 14.4. Customizing how tests run
-    - [ ] 14.5. Mocking dependencies
-    - [ ] 14.6. Testing HTML forms
-    - [ ] 14.7. Integration testing
-    - [ ] 14.8. Profiling test coverage
+    - [x] 14.5. Mocking dependencies
+    - [x] 14.6. Testing HTML forms
+    - [x] 14.7. Integration testing
+    - [x] 14.8. Profiling test coverage
 15. [Conclusion](#conclusion)
 16. [Further reading and useful links](#further-reading-and-useful-links)
