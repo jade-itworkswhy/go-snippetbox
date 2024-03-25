@@ -23,12 +23,17 @@ type templateData struct {
 }
 
 // function for formatting time
-func humanData(t time.Time) string {
-	return t.Format("02 Jan 2006 at 15:04") // why this specific moment? oh It is just the numbers 1 2 3 4 5 6 7...
+func humanDate(t time.Time) string {
+	// Return the empty string if time has the zero value.
+	if t.IsZero() {
+		return ""
+	}
+	// Convert the time to UTC before formatting it.
+	return t.UTC().Format("02 Jan 2006 at 15:04")
 }
 
 var functions = template.FuncMap{
-	"humanData": humanData,
+	"humanData": humanDate,
 }
 
 func newTemplateCache() (map[string]*template.Template, error) {
