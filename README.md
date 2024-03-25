@@ -88,10 +88,10 @@
     - [x] 13.1. Embedding static files
     - [x] 13.2. Embedding HTML templates
 14. [Testing](#testing)
-    - [ ] 14.1. Unit testing and sub-tests
-    - [ ] 14.2. Testing HTTP handlers and middleware
-    - [ ] 14.3. End-to-end testing
-    - [ ] 14.4. Customizing how tests run
+    - [x] 14.1. Unit testing and sub-tests
+    - [x] 14.2. Testing HTTP handlers and middleware
+    - [x] 14.3. End-to-end testing
+    - [x] 14.4. Customizing how tests run
     - [ ] 14.5. Mocking dependencies
     - [ ] 14.6. Testing HTML forms
     - [ ] 14.7. Integration testing
