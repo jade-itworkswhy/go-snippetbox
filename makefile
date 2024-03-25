@@ -12,10 +12,19 @@ verify:
 
 # will automatically remove any unused packages from your go.mod and go.sum files.
 tidy:
-	go mod tidy
+	go mod tidy 
 
 test:
-	go test ./cmd/web
+	go test ./...
 
-test-verbose:
+test-no-cache:
+	go test -count=1 ./...
+
+test-web:
 	go test ./cmd/web -v
+
+test-web-v:
+	go test ./cmd/web -v
+
+clear-test-cache:
+	go clean -testcache
