@@ -5,11 +5,12 @@ import (
 	"database/sql"
 	"flag"
 	"html/template"
-	"jade-factory/go-snippetbox/internal/models"
 	"log/slog"
 	"net/http"
 	"os"
 	"time"
+
+	"jade-factory/go-snippetbox/internal/models"
 
 	"github.com/alexedwards/scs/mysqlstore"
 	"github.com/alexedwards/scs/v2"
@@ -23,8 +24,8 @@ import (
 // add more to this as the build progresses.
 type application struct {
 	logger         *slog.Logger
-	snippets       *models.SnippetModel
-	users          *models.UserModel
+	snippets       models.SnippetModelInterface // Use our new interface type.
+	users          models.UserModelInterface    // Use our new interface type.
 	templateCache  map[string]*template.Template
 	formDecoder    *form.Decoder
 	sessionManager *scs.SessionManager
