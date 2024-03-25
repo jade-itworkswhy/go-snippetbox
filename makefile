@@ -22,3 +22,9 @@ test-no-cache:
 
 test-web:
 	go test ./cmd/web -v
+
+test-cov:
+	go test -cover ./...
+
+test-cov-out:
+	go test -coverprofile=/tmp/profile.out ./...
